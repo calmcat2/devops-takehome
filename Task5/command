@@ -1,5 +1,5 @@
 # Assuming the command is run on the server container, use the following curl command to send a POST call.
 curl -X POST \
 -H "Content-Type: application/json" \
--d '{"name":"Costco"}' \
-http://localhost:30006/stores
+-d '{"name":"test_store"}' \
+http://localhost:8000/stores

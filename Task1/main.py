@@ -34,7 +34,7 @@ def on_startup():
     create_db_and_tables(engine)
     try:
         if os.environ['LOG_LEVEL']=='debug':
-            print(os.environ['MODE'])
+            print(os.environ.get['MODE'])
     except Exception as e:
         print(f"Error getting env variables: {e}")
 
@@ -46,7 +46,7 @@ def read_root():
 @app.post("/stores")
 def create_store(store: Store, session: Session=Depends(get_session)):
     try:
-        if store.id in [store.id for store in session.exec(select(Store.id)).all()]:
+        if store.id in session.exec(select(Store.id)).all():
             raise HTTPException(status_code=400, detail="Store already exists")
         else:
             session.add(store)
