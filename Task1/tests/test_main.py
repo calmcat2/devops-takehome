@@ -1,11 +1,11 @@
 from typing import Optional
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine, SQLModel, Session
-from .main import app, get_engine, get_session
+from ..main import app, get_engine, get_session
 
 # Create an in-memory SQLite engine for testing
 def get_test_engine():
-    return create_engine("sqlite:///:memory:")
+    return create_engine("sqlite:///example.db")
 test_engine = get_test_engine()
 
 # Override session dependency to use test engine
