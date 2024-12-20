@@ -31,6 +31,7 @@ def test_create_item():
         headers={"Content-Type": "application/json"},
         json={"name": "Smith's"},
     )
+    print(response.json())
     assert response.status_code == 200
     assert response.json() == {
         "id": "1",
