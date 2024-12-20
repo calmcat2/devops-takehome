@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from unnitest.mock import patch
+from unittest.mock import patch
 
 with patch("sqlmodel.create_engine") as mock_create_engine:
     mock_create_engine.return_value = None  # Prevent real engine creation
