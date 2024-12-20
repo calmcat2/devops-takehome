@@ -1,15 +1,12 @@
 from typing import Optional
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine, SQLModel, Session
-from .main import app
+from .main import app, get_engine, get_session
 
 # Create an in-memory SQLite engine for testing
 def get_test_engine():
     return create_engine("sqlite:///:memory:?check_same_thread=False")
 test_engine = get_test_engine()
-
-# Initialize database schema for testing
-SQLModel.metadata.create_all(test_engine)
 
 # Override session dependency to use test engine
 def get_test_session(engine=test_engine):
@@ -18,8 +15,11 @@ def get_test_session(engine=test_engine):
         yield session
 
 # Apply dependency override for testing
-app.dependency_overrides["get_engine"] = get_test_engine
-app.dependency_overrides["get_session"] = get_test_session
+app.dependency_overrides[get_engine] = get_test_engine
+app.dependency_overrides[get_session] = get_test_session
+
+# Initialize database schema for testing
+SQLModel.metadata.create_all(test_engine)
 
 client = TestClient(app)
 
