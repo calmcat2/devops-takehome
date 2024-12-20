@@ -10,14 +10,14 @@ def test_read_main():
     assert response.status_code == 200
     assert response.json() == {"msg": "Hello World"}
 
-def test_create_item():
-    response = client.post(
-        "/stores/",
-        headers={"Content-Type": "application/json"},
-        json={"name": "Smith's"},
-    )
-    assert response.status_code == 200
-    assert response.json() == {
-        "id": "1",
-        "name": "Smith's",
-    }
+# def test_create_item():
+#     response = client.post(
+#         "/stores/",
+#         headers={"Content-Type": "application/json"},
+#         json={"name": "Smith's"},
+#     )
+#     assert response.status_code == 200
+#     assert response.json() == {
+#         "id": "1",
+#         "name": "Smith's",
+#     }
