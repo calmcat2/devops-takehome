@@ -42,10 +42,13 @@ def read_root():
 @app.post("/stores")
 def create_store(store: Store, session: Session=Depends(get_session)):
     try:
-        session.add(store)
-        session.commit()
-        session.refresh(store)
-        return store
+        if store.id in [store.id for store in session.exec(select(Store.id)).all()]:
+            raise HTTPException(status_code=400, detail="Store already exists")
+        else:
+            session.add(store)
+            session.commit()
+            session.refresh(store)
+            return store
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 # Method for GET at path "/stores"
