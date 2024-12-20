@@ -22,10 +22,10 @@ services:
       - 38000:8000
     # Mount volume for local data
     volumes:
-      - ../Task1:/app
+      - ../Task4:/mnt
   database:
-  # Use image postgre:13 
     image: postgres:13
+    container_name: database
   # Provide environments for initilization
     environment:
       POSTGRES_DB: demo
