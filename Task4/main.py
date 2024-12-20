@@ -18,11 +18,11 @@ def get_engine():
 engine = get_engine()
 
 # Method to create tables
-def create_db_and_tables(engine=Depends(get_engine)):
+def create_db_and_tables(engine):
     SQLModel.metadata.create_all(engine)
 
 # Method to create a session dependency
-def get_session(engine=Depends(get_engine)):
+def get_session():
     print("Creating a session")
     with Session(engine) as session:
         yield session
@@ -31,7 +31,7 @@ def get_session(engine=Depends(get_engine)):
 @app.on_event("startup")
 def on_startup():
     # Initialize the database
-    create_db_and_tables()
+    create_db_and_tables(engine)
     try:
         if os.environ['LOG_LEVEL']=='debug':
             print(os.environ['MODE'])
