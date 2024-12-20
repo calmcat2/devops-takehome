@@ -1,0 +1,5 @@
+# command running on localhost, assume localhost is a Linux machine.
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"name":"Costco"}' \
+http://localhost:30006/stores

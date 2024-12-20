@@ -1,0 +1,38 @@
+services:
+  server:
+    image: demo/server:latest
+    container_name: server
+    build:
+    # build from Dockerfile in Task1
+      context: ../Task1
+      dockerfile: Dockerfile
+    # build with argument mode=dev
+      args:
+        mode: dev
+    # Add env variable LOG_LEVEL and database related variables
+    environment:
+      LOG_LEVEL: debug
+      POSTGRES_DB: demo
+      PGUSER: demouser
+      PGPASSWORD: password123
+    # Run command at startup
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    # Expose on port 30006
+    ports:
+      - 38000:8000
+    # Mount volume for local data
+    volumes:
+      - ../Task1:/app
+  database:
+  # Use image postgre:13 
+    image: postgres:13
+  # Provide environments for initilization
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: password123
+  # Mount volumes for db data 
+    volumes:
+      - db-data:/var/lib/pgsql/data
+volumes:
+  db-data:

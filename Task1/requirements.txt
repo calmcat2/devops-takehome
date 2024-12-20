@@ -1,0 +1,4 @@
+uvicorn[standard]==0.15.0
+fastapi~=0.70.0
+sqlmodel==0.0.10
+psycopg2-binary==2.9.6
