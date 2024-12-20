@@ -19,11 +19,11 @@ def get_engine():
 engine = get_engine()
 
 # Method to create tables
-def create_db_and_tables():
+def create_db_and_tables(engine=Depends(get_engine)):
     SQLModel.metadata.create_all(engine)
 
 # Method to create a session dependency
-def get_session():
+def get_session(engine=Depends(get_engine)):
     print("Creating a session")
     with Session(engine) as session:
         yield session
