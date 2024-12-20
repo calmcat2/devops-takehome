@@ -1,7 +1,8 @@
+from typing import Optional
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch
-from sqlmodel import create_engine, SQLModel, Session
+from sqlmodel import create_engine, SQLModel, Session, Field
 from .main import app
 
 # Create an in-memory SQLite engine for testing
