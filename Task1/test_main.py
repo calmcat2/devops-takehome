@@ -8,9 +8,9 @@ from .main import app
 # Create an in-memory SQLite engine for testing
 test_engine = create_engine("sqlite:///:memory:", echo=True)
 
-class Store(SQLModel,table=True):
-    id: Optional[int]=Field(default=None,primary_key=True)
-    name: str
+# class Store(SQLModel,table=True):
+#     id: Optional[int]=Field(default=None,primary_key=True)
+#     name: str
 
 # Initialize database schema for testing
 SQLModel.metadata.create_all(test_engine)
