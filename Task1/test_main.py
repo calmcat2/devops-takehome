@@ -9,7 +9,7 @@ def get_test_engine():
 test_engine = get_test_engine()
 
 # Initialize database schema for testing
-def test_create_db_and_tables():
+def create_test_db_and_tables():
     SQLModel.metadata.create_all(test_engine)
 
 # Override session dependency to use test engine
@@ -20,7 +20,7 @@ def get_test_session():
 
 # Apply dependency override for testing
 app.dependency_overrides["get_engine"] = get_test_engine
-app.dependency_overrides["create_db_and_tables"] = test_create_db_and_tables
+app.dependency_overrides["create_db_and_tables"] = create_test_db_and_tables
 app.dependency_overrides["get_session"] = get_test_session
 
 client = TestClient(app)
