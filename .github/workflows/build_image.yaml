@@ -2,7 +2,7 @@ name: Test, build and push image
 on: 
     push:
         paths:
-            - .github/workflows
+            - .github/workflows/*
             - Task1/
 jobs:
   build_push_image:
