@@ -3,7 +3,7 @@ on:
     push:
         paths:
             - .github/workflows/*
-            - Task1/
+            - Task1/*
 jobs:
   build_push_image:
     runs-on: ubuntu-latest

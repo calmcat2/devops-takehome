@@ -2,6 +2,9 @@ FROM python:3.7-slim
 
 LABEL description="A Python application with PostgreSQL and Google Cloud SDK"
 
+# Set working directory
+WORKDIR /app
+
 # Set env variable MODE to be the value of argument mode 
 ARG mode
 ENV MODE=$mode 
@@ -22,9 +25,6 @@ RUN apt-get update &&\
 # Install packages in requirements.txt
 COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Set working directory
-WORKDIR /app
 
 # Container should sleep indefinitely
 CMD ["sleep","inf"]
