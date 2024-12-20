@@ -32,7 +32,7 @@ app = FastAPI()
 @app.on_event("startup")
 def on_startup():
     # Initialize the database
-    create_db_and_tables()
+    # create_db_and_tables()
     try:
         if os.environ['LOG_LEVEL']=='debug':
             print(os.environ['MODE'])
