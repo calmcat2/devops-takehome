@@ -1,7 +1,5 @@
 from typing import Optional
-import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch
 from sqlmodel import create_engine, SQLModel, Session
 from .main import app
 
@@ -15,12 +13,6 @@ SQLModel.metadata.create_all(test_engine)
 def get_test_session():
     with Session(test_engine) as session:
         yield session
-
-@pytest.fixture(scope="module", autouse=True)
-def setup_test_environment():
-    # Patch create_engine globally before tests run
-    with patch("sqlmodel.create_engine", return_value=test_engine):
-        yield
 
 # Apply dependency override for testing
 app.dependency_overrides["get_session"] = get_test_session
