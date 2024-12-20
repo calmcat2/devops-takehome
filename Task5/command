@@ -1,4 +1,4 @@
-# command running on localhost, assume localhost is a Linux machine.
+# Assuming the command is run on the server container, use the following curl command to send a POST call.
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"name":"Costco"}' \

@@ -1,7 +1,6 @@
 from typing import Optional
 from fastapi.testclient import TestClient
-from sqlmodel import  SQLModel, Session
-from sqlalchemy import create_engine
+from sqlmodel import  create_engine,SQLModel, Session
 from ..main import app, get_engine, get_session
 
 # Create an in-memory SQLite engine for testing

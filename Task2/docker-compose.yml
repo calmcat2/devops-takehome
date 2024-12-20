@@ -20,10 +20,7 @@ services:
       PGUSER: demouser
       PGPASSWORD: password123
     # Run command at startup
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    # Expose on port 30006
-    ports:
-      - 38000:8000
+    command: uvicorn main:app --reload
     # Mount volume for local data
     volumes:
       - ../Task4:/mnt
