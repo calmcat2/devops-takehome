@@ -10,8 +10,11 @@ class Store(SQLModel,table=True):
     name: str
 
 #Create an Engine with the postgres database
-sql_url="postgresql://demouser:password123@database:5432/demo"
-engine=create_engine(sql_url)
+def get_engine():
+    sql_url = "postgresql://demouser:password123@database:5432/demo"
+    return create_engine(sql_url)
+
+engine = get_engine()
 
 # Method to create tables
 def create_db_and_tables():

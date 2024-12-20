@@ -2,15 +2,11 @@ from typing import Optional
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch
-from sqlmodel import create_engine, SQLModel, Session, Field
+from sqlmodel import create_engine, SQLModel, Session
 from .main import app
 
 # Create an in-memory SQLite engine for testing
-test_engine = create_engine("sqlite:///:memory:", echo=True)
-
-# class Store(SQLModel,table=True):
-#     id: Optional[int]=Field(default=None,primary_key=True)
-#     name: str
+test_engine = create_engine("sqlite:///:memory:?check_same_thread=False")
 
 # Initialize database schema for testing
 SQLModel.metadata.create_all(test_engine)
