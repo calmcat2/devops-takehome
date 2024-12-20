@@ -1,6 +1,9 @@
 from fastapi.testclient import TestClient
+from unnitest.mock import patch
 
-from .main import app, get_session
+with patch("sqlmodel.create_engine") as mock_create_engine:
+    mock_create_engine.return_value = None  # Prevent real engine creation
+    from .main import app, get_session
 
 client = TestClient(app)
 

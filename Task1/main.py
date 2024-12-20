@@ -27,10 +27,6 @@ app = FastAPI()
 # Method for app start up.
 @app.on_event("startup")
 def on_startup():
-    # Skip database initialization if running in test mode
-    if os.getenv("TESTING") == "true":
-        print("Skipping database initialization in test mode")
-        return
     # Initialize the database
     create_db_and_tables()
     try:
