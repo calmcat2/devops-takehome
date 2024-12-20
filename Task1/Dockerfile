@@ -1,8 +1,5 @@
 FROM python:3.7-slim
 
-WORKDIR /app
-COPY . /app
-
 LABEL description="A Python application with PostgreSQL and Google Cloud SDK"
 
 # Set env variable MODE to be the value of argument mode 
@@ -23,6 +20,11 @@ RUN apt-get update &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install packages in requirements.txt
+COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Set working directory
+WORKDIR /app
+
+# Container should sleep indefinitely
 CMD ["sleep","inf"]

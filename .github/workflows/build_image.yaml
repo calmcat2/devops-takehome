@@ -1,7 +1,11 @@
-on: [push]
+on: 
+    push:
+        paths:
+            - .github/workflows
+            - Task1/
 name: Test, build and push image
 jobs:
-  build_image:
+  build_push_image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,8 +19,6 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: List files in root directory
-        run: ls -la
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
