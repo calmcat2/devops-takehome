@@ -7,8 +7,10 @@ from .main import app
 def get_test_engine():
     return create_engine("sqlite:///:memory:?check_same_thread=False")
 test_engine = get_test_engine()
+
 # Initialize database schema for testing
-SQLModel.metadata.create_all(test_engine)
+def test_create_db_and_tables():
+    SQLModel.metadata.create_all(test_engine)
 
 # Override session dependency to use test engine
 def get_test_session():
@@ -18,6 +20,7 @@ def get_test_session():
 
 # Apply dependency override for testing
 app.dependency_overrides["get_engine"] = get_test_engine
+app.dependency_overrides["create_db_and_tables"] = test_create_db_and_tables
 app.dependency_overrides["get_session"] = get_test_session
 
 client = TestClient(app)

@@ -4,6 +4,8 @@ from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 import os
 
+app = FastAPI()
+
 #Create a model
 class Store(SQLModel,table=True):
     id: Optional[int]=Field(default=None,primary_key=True)
@@ -25,8 +27,6 @@ def get_session():
     print("Creating a session")
     with Session(engine) as session:
         yield session
-
-app = FastAPI()
 
 # Method for app start up.
 @app.on_event("startup")
