@@ -5,7 +5,7 @@ from .main import app, get_engine, get_session
 
 # Create an in-memory SQLite engine for testing
 def get_test_engine():
-    return create_engine("sqlite:///:memory:?check_same_thread=False")
+    return create_engine("sqlite:///:memory:")
 test_engine = get_test_engine()
 
 # Override session dependency to use test engine
