@@ -15,8 +15,8 @@ def get_test_session(engine=test_engine):
         yield session
 
 # Apply dependency override for testing
-# app.dependency_overrides[get_engine] = get_test_engine
-# app.dependency_overrides[get_session] = get_test_session
+app.dependency_overrides[get_engine] = get_test_engine
+app.dependency_overrides[get_session] = get_test_session
 
 # Initialize database schema for testing
 SQLModel.metadata.create_all(test_engine)
@@ -29,16 +29,14 @@ def test_read_main():
     assert response.json() == {"Hello": "World"}
 
 def test_create_item():
-    engine = get_test_engine()
-    with Session(engine) as session:
-        response = client.post(
-            "/stores/",
-            headers={"Content-Type": "application/json"},
-            json={"name": "Smith's"},
-        )
-        print(response.json())
-        assert response.status_code == 200
-        data=response.json()
-        assert "id" in data
-        assert data["name"] == "Smith's"
-        
+    response = client.post(
+        "/stores/",
+        headers={"Content-Type": "application/json"},
+        json={"name": "Smith's"},
+    )
+    print(response.json())
+    assert response.status_code == 200
+    data=response.json()
+    assert "id" in data
+    assert data["name"] == "Smith's"
+    
