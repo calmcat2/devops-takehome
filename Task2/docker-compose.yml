@@ -23,7 +23,7 @@ services:
     command: uvicorn main:app --reload
     # Mount volume for local data
     volumes:
-      - ../Task4:/mnt
+      - ../Task3:/mnt
   database:
     image: postgres:13
     container_name: database
