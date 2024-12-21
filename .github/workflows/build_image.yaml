@@ -20,7 +20,7 @@ jobs:
           pip install pytest fastapi sqlmodel httpx psycopg2-binary
       - name: Run tests
         run: |
-          pytest Task1/tests.py
+          pytest Task1/tests/test_main.py -s
   build_push_image:
     runs-on: ubuntu-22.04
     needs: unit_test
