@@ -19,7 +19,11 @@ app.dependency_overrides[get_engine] = get_test_engine
 app.dependency_overrides[get_session] = get_test_session
 
 # Initialize database schema for testing
+# SQLModel.metadata.create_all(test_engine)
+
+print("Registered tables before create_all():", SQLModel.metadata.tables.keys())  # Debugging step
 SQLModel.metadata.create_all(test_engine)
+print("Registered tables after create_all():", SQLModel.metadata.tables.keys())  # Debugging step
 
 client = TestClient(app)
 
