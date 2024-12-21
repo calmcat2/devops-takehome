@@ -1,6 +1,6 @@
 from typing import Optional
 from fastapi.testclient import TestClient
-from sqlmodel import  create_engine,SQLModel, Session
+from sqlmodel import create_engine,SQLModel, Session
 from ..main import app, get_engine, get_session, Store
 
 # Create an in-memory SQLite engine for testing
@@ -19,11 +19,7 @@ app.dependency_overrides[get_engine] = get_test_engine
 app.dependency_overrides[get_session] = get_test_session
 
 # Initialize database schema for testing
-# SQLModel.metadata.create_all(test_engine)
-
-print("Registered tables before create_all():", SQLModel.metadata.tables.keys())  # Debugging step
 SQLModel.metadata.create_all(test_engine)
-print("Registered tables after create_all():", SQLModel.metadata.tables.keys())  # Debugging step
 
 client = TestClient(app)
 
