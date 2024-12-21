@@ -6,7 +6,7 @@ on:
             - Task1/*
 jobs:
   unit_test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
         run: |
           pytest Task1/tests.py
   build_push_image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: unit_test
     steps:
       - name: Checkout
