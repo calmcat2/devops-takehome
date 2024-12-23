@@ -2,4 +2,4 @@
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"name":"test_store"}' \
-http://localhost:8000/stores
+http://localhost:38000/stores
