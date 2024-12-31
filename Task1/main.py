@@ -48,7 +48,7 @@ def read_root():
 # Method for POST at path "/stores"
 @app.post("/stores")
 def create_store(store: Store, session: Session=Depends(get_session)):
-    if session.get(Store,store.id)!=None:
+    if store.id and session.get(Store,store.id):
         print("Store ID already exists")
         raise HTTPException(status_code=400, detail="Store ID already exists")
     else:
