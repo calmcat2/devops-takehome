@@ -12,7 +12,10 @@ class Store(SQLModel,table=True):
 
 #Create an Engine with the postgres database
 def get_engine():
-    sql_url = "postgresql://demouser:password123@database:5432/demo"
+    user=os.environ.get('PGUSER')
+    password=os.environ.get('PGPASSWORD')
+    db=os.environ.get('POSTGRES_DB')
+    sql_url = "postgresql://"+user+":"+password+"@database:5432/"+db
     return create_engine(sql_url)
 
 engine = get_engine()
@@ -34,9 +37,9 @@ def on_startup():
     create_db_and_tables(engine)
     try:
         if os.environ['LOG_LEVEL']=='debug':
-            print(os.environ.get['MODE'])
-    except Exception as e:
-        print(f"Error getting env variables: {e}")
+            print("mode is: ",os.environ['MODE'])   
+    except Exception as e: 
+        print(f"Error getting env variables {e}")
 
 # Method for GET at path "/"
 @app.get("/")
@@ -45,16 +48,15 @@ def read_root():
 # Method for POST at path "/stores"
 @app.post("/stores")
 def create_store(store: Store, session: Session=Depends(get_session)):
-    try:
-        if store.id in session.exec(select(Store.id)).all():
-            raise HTTPException(status_code=400, detail="Store already exists")
-        else:
-            session.add(store)
-            session.commit()
-            session.refresh(store)
-            return store
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    if session.get(Store,store.id)!=None:
+        print("Store ID already exists")
+        raise HTTPException(status_code=400, detail="Store ID already exists")
+    else:
+        session.add(store)
+        session.commit()
+        session.refresh(store)
+        return store
+
 # Method for GET at path "/stores"
 @app.get("/get-stores")
 def get_store(session: Session=Depends(get_session),offset: int=0,limit: int=Query(100,le=100)):

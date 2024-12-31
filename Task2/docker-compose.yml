@@ -19,8 +19,7 @@ services:
       POSTGRES_DB: demo
       PGUSER: demouser
       PGPASSWORD: password123
-    # Run command at startup
-    # If no expose on service [command: uvicorn main:app --reload]
+    # Run command at startup to expose service on all interfaces and enable auto-reload
     command: uvicorn main:app --host 0.0.0.0 --reload
     # Expose port 8000
     ports:

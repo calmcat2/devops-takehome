@@ -1,4 +1,4 @@
-# Assuming the command is run on the server container, use the following curl command to send a POST call.
+# Assuming the command is run on the host server (Linux), use the following curl command to send a POST call.
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"name":"test_store"}' \

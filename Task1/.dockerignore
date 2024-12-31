@@ -1,3 +1,4 @@
-Dockerfile
-tests/**
-__init__.py
+# ignore the files that are not required in the docker image.
+*
+!main.py
+!requirements.txt
