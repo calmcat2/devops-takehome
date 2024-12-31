@@ -7,6 +7,10 @@ on:
 jobs:
   unit_test:
     runs-on: ubuntu-22.04
+    env:
+      PGUSER: demo
+      PGPASSWORD: demo
+      POSTGRES_DB: demo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
