@@ -2,6 +2,15 @@ from typing import Optional
 from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 import os
+import logging
+
+# Configure the logging module
+logging.basicConfig(
+    level=logging.INFO,  # Set the logging level (e.g., DEBUG, INFO)
+    format="%(asctime)s - %(levelname)s - %(message)s",  # Define log format
+)
+
+logger = logging.getLogger(__name__)  # Create a logger instance
 
 app = FastAPI()
 
@@ -22,6 +31,7 @@ engine = get_engine()
 
 # Method to create tables
 def create_db_and_tables(engine):
+    logger.debug("Creating tables")
     SQLModel.metadata.create_all(engine)
 
 # Method to create a session dependency
@@ -36,9 +46,9 @@ def on_startup():
     create_db_and_tables(engine)
     try:
         if os.environ['LOG_LEVEL']=='debug':
-            print("mode is: ",os.environ['MODE'])   
+            logger.info("mode is: "+os.environ['MODE'])   
     except Exception as e: 
-        print(f"Error getting env variables {e}")
+        logger.debug(f"Error getting env variables {e}")
 
 # Method for GET at path "/"
 @app.get("/")
