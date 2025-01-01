@@ -26,7 +26,6 @@ def create_db_and_tables(engine):
 
 # Method to create a session dependency
 def get_session():
-    print("Creating a session")
     with Session(engine) as session:
         yield session
 

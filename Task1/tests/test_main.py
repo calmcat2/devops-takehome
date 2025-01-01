@@ -10,7 +10,6 @@ test_engine = get_test_engine()
 
 # Override session dependency to use test engine
 def get_test_session():
-    print("Using test session.")
     with Session(test_engine) as session:
         yield session
 
