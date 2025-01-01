@@ -14,11 +14,7 @@ services:
       args:
         mode: dev
     # Add env variable LOG_LEVEL and database related variables
-    environment:
-      LOG_LEVEL: debug
-      POSTGRES_DB: demo
-      PGUSER: demouser
-      PGPASSWORD: password123
+    env_file: server.env
     # Run command at startup to expose service on all interfaces and enable auto-reload
     command: uvicorn main:app --host 0.0.0.0 --reload
     # Expose port 8000
@@ -32,10 +28,7 @@ services:
     container_name: database
     restart: always
   # Provide environments for initilization
-    environment:
-      POSTGRES_DB: demo
-      POSTGRES_USER: demouser
-      POSTGRES_PASSWORD: password123
+    env_file: db.env
   # Healthcheck for database
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U demouser -d demo"]
